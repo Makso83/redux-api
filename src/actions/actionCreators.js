@@ -138,7 +138,7 @@ export const addService = async (dispatch, name, price) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, price }),
+      body: JSON.stringify({ name, price, id: 0 }),
     });
     if (!response.ok) {
       throw new Error(response.statusText);

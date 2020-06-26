@@ -10,7 +10,7 @@ import ErrorMessage from './ErrorMessage';
 function EditItem({ match }) {
   const dispatch = useDispatch();
   const {
-    name, price, content, loading, error, id, saving, redirect
+    name, price, content, loading, error, id, saving, redirect,
   } = useSelector((state) => state.editMode);
 
   useEffect(() => {
@@ -26,24 +26,37 @@ function EditItem({ match }) {
     postServiceDetails(dispatch, {
       id, name, price, content,
     });
-
   };
 
   const onSaving = () => {
     if (saving) {
-      return <div className="centered"><Loader type="TailSpin" color="#000000" height={25} width={25} /></div>;
+      return (
+        <div className="centered">
+          <Loader type="TailSpin" color="#000000" height={25} width={25} />
+        </div>
+      );
     }
     return (
       <div>
         <NavLink to="/" className="button button-primary">Отмена</NavLink>
-        <button onClick={handleSubmit} type="button" className="button button-primary">Сохранить</button>
+        <button
+          onClick={handleSubmit}
+          type="button"
+          className="button button-primary"
+        >
+          Сохранить
+        </button>
       </div>
 
     );
   };
 
   if (loading) {
-    return <div className="centered"><Loader type="TailSpin" color="#000000" height={50} width={50} /></div>;
+    return (
+      <div className="centered">
+        <Loader type="TailSpin" color="#000000" height={50} width={50} />
+      </div>
+    );
   }
 
   if (error) {
@@ -64,20 +77,38 @@ function EditItem({ match }) {
         <label htmlFor="service">
           Название
         </label>
-        <input className="EditItem__form_input styled-block" type="textarea" name="service" value={name} onChange={handleChange} />
+        <input
+          className="EditItem__form_input styled-block"
+          type="textarea"
+          name="service"
+          value={name}
+          onChange={handleChange}
+        />
 
         <label htmlFor="price">
           Стоимость
         </label>
-        <input className="EditItem__form_input styled-block" type="textarea" name="price" value={price} onChange={handleChange} />
+        <input
+          className="EditItem__form_input styled-block"
+          type="textarea"
+          name="price"
+          value={price}
+          onChange={handleChange}
+        />
 
         <label htmlFor="content">
           Описание
         </label>
-        <input className="EditItem__form_input styled-block" type="textarea" name="content" value={content} onChange={handleChange} />
+        <input
+          className="EditItem__form_input styled-block"
+          type="textarea"
+          name="content"
+          value={content}
+          onChange={handleChange}
+        />
         {onSaving()}
       </form>
-      {redirect && <Redirect to='/' />}
+      {redirect && <Redirect to="/" />}
     </>
   );
 }

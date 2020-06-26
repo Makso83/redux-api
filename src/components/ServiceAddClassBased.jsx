@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { changeServiceField, addService } from '../actions/actionCreators';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { changeServiceField, addService } from "../actions/actionCreators";
 
 class ServiceAddClassBased extends Component {
   static propTypes = {
@@ -15,40 +15,47 @@ class ServiceAddClassBased extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  handleChange = evt => {
+  handleChange = (evt) => {
     const { name, value } = evt.target;
     this.props.onChange(name, value);
-  }
+  };
 
-  handleSubmit = evt => {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     this.props.onSave(this.props.item.name, this.props.item.price);
-  }
+  };
 
   render() {
-    const {item, loading, error} = this.props;
+    const { item, loading, error } = this.props;
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <input name='name' onChange={this.handleChange} value={item.name} />
-        <input name='price' onChange={this.handleChange} value={item.price} />
-        <button type='submit' disabled={loading}>Save</button>
+        <input name="name" onChange={this.handleChange} value={item.name} />
+        <input name="price" onChange={this.handleChange} value={item.price} />
+        <button type="submit" disabled={loading}>
+          Save
+        </button>
         {error && <p>Something went wrong try again</p>}
-    </form>
+      </form>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { serviceAdd: {item, loading, error} } = state;
+  const {
+    serviceAdd: { item, loading, error },
+  } = state;
   return { item, loading, error };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onChange: (name, value) => changeServiceField(name, value),
-    onSave: (name, price) => addService(dispatch, name, price)
-  }
-}
+    onSave: (name, price) => addService(dispatch, name, price),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceAddClassBased);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ServiceAddClassBased);
